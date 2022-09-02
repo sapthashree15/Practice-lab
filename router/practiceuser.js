@@ -25,7 +25,11 @@ let users = [
 
 
 router.get('/',function (req, res) {
+    // console.log(JSON.stringify(users,null,2));
+    // res.send(JSON.stringify(users,null,2));
+    // JSON.stringify(users);
     res.json(users);
+    
 });
 
 router.get("/:email",function (req,res){
@@ -58,9 +62,9 @@ router.put("/:email", function (req, res) {
    
     if (filtered_users.length > 0) {
         let filtered_user = filtered_users[0];
-        let DOB = req.params.DOB;
-        let firstName = req.params.firstName;
-        let lastName = req.params.lastName;
+        let DOB = req.body.DOB;
+        let firstName = req.body.firstName;
+        let lastName = req.body.lastName;
         if(DOB) {
             filtered_user.DOB = DOB
         }
