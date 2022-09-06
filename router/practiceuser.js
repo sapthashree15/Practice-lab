@@ -37,24 +37,24 @@ res.send("The user" + (' ')+ (req.body.firstName) + " Has been added!");
 router.put("/:email", function (req, res) {
     const email = req.params.email;
    
-    let filtered_users = users.filter((user) => user.email === email);
+    user = users[email] 
    
-    if (filtered_users.length > 0) {
-        let filtered_user = filtered_users[0];
+    if (user) {
+        
         let DOB = req.body.DOB;
         let firstName = req.body.firstName;
         let lastName = req.body.lastName;
         if(DOB) {
-            filtered_user.DOB = DOB
+            user["DOB"] = DOB
         }
         if(firstName) {
-            filtered_user.firstName = firstName
+            user["firstName"] = firstName
         }
         if(lastName) {
-            filtered_user.lastName = lastName
+            user["lastName"] = lastName
         }
-        users = users.filter((user) => user.email != email);
-        users.push(filtered_user);
+        users[email]=user;
+
         res.send(`User with the email  ${email} updated.`);
     }
     else{
@@ -65,13 +65,9 @@ router.put("/:email", function (req, res) {
 
   router.delete("/:email", (req, res) => {
     const email = req.params.email;
-    if (req.params.email){
-        users[req.params.email] = {
-            "firstName":req.body.firstName,
-            "lastName":req.body.lastName,
-            "DOB":req.body.DOB,
-    
-            }
+    if (email){
+        delete users[email]
+
     }
     res.send(`User with the email  ${email} deleted.`);
   });
