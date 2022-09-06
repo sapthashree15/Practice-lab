@@ -21,22 +21,18 @@ res.send(users[email])
 
 });
 
-router.post("/new/",function (req,res){
-    if(!req.body.email){
-        res.status(400)
-        return res.json({error: "email is required..."})
+router.post("/",function (req,res){
+   
+    if (req.body.email){
+        users[req.body.email] = {
+            "firstName":req.body.firstName,
+            "lastName":req.body.lastName,
+            "DOB":req.body.DOB,
+    
+            }
     }
-
-    const user ={
-        "firstName":req.body.firstName,
-        "lastName":req.body.lastName,
-        "email":req.body.email,
-        "DOB":req.body.DOB
-    }
-
-    users.push(user);
-    res.send("The user" + (' ')+ (req.body.firstName) + " Has been added!");
-})
+res.send("The user" + (' ')+ (req.body.firstName) + " Has been added!");
+});
   
 router.put("/:email", function (req, res) {
     const email = req.params.email;
