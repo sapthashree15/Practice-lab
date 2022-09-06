@@ -65,7 +65,14 @@ router.put("/:email", function (req, res) {
 
   router.delete("/:email", (req, res) => {
     const email = req.params.email;
-    users = users.filter((user) => user.email != email);
+    if (req.params.email){
+        users[req.params.email] = {
+            "firstName":req.body.firstName,
+            "lastName":req.body.lastName,
+            "DOB":req.body.DOB,
+    
+            }
+    }
     res.send(`User with the email  ${email} deleted.`);
   });
 
