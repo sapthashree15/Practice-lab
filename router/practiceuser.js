@@ -2,40 +2,23 @@ const express = require('express');
 
 const router = express.Router();
 
-let users = [
-    {
-        firstName: "John",
-        lastName: "Doe",
-        email:"johndoe@gamil.com",
-        DOB:"22-12-1990",
-    },
-    {
-        firstName: "Anna",
-        lastName: "smith",
-        email:"annasmith@gamil.com",
-        DOB:"02-07-1983",
-    },
-    {
-        firstName: "Peter",
-        lastName: "Jones",
-        email:"peterjones@gamil.com",
-        DOB:"21-03-1989",
-    },
-];
+var users = {
+    "johnsmith@gamil.com": {"firstName": "John","lastName": "Doe","DOB":"22-12-1990"},
+    "annasmith@gamil.com":{"firstName": "Anna","lastName": "smith","DOB":"02-07-1983"},
+    "peterjones@gamil.com":{"firstName": "Peter","lastName": "Jones","DOB":"21-03-1989"}
+};
 
 
 router.get('/',function (req, res) {
-    // console.log(JSON.stringify(users,null,2));
-    // res.send(JSON.stringify(users,null,2));
-    // JSON.stringify(users);
-    res.json(users);
+    
+    res.send(JSON.stringify({users}, null, 4));
     
 });
 
-router.get("/:email",function (req,res){
-    const email = req.params.email;
-    let filtered_users = users.filter((user) => user.email === email);
-    res.json(filtered_users);
+router.get('/:email',function (req, res) {
+const email = req.params.email;
+res.send(users[email])
+
 });
 
 router.post("/new/",function (req,res){
@@ -89,5 +72,7 @@ router.put("/:email", function (req, res) {
     users = users.filter((user) => user.email != email);
     res.send(`User with the email  ${email} deleted.`);
   });
+
+
 
   module.exports=router;
